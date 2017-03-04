@@ -27,8 +27,8 @@ node *root;
  
 
 // DEFINE FUNCTIONS
-int index(int);
-bool checknode(node*);
+int case_check(int);
+bool check_node(node*);
 void unload_node(node*);
 
 
@@ -45,7 +45,7 @@ bool check(const char *word)
     for(int i = 0; i < strlen(word); i++)
     {
         char letter = word[i];
-        int n = index(letter);
+        int n = case_check(letter);
         
         //if node -> next node = null, return false
         if(current_node -> children[n] == NULL)
@@ -88,7 +88,7 @@ bool load(const char *dictionary)
     
     // ALLOCATE SPACE TO ROOT
     root = calloc(1, sizeof(node));
-    if(checknode(root) == true)
+    if(check_node(root) == true)
     {
         total_nodes++;
     }
@@ -104,7 +104,7 @@ bool load(const char *dictionary)
         for(int i = 0; i < strlen(word); i++)
         {
             char letter = word[i];
-            int n = index(letter);
+            int n = case_check(letter);
             
             // IF NODE EXISTS THEN POINT TO NEXT NODE
             if(current_node -> children[n] != NULL)
@@ -117,7 +117,7 @@ bool load(const char *dictionary)
             else if(current_node -> children[n]== NULL)
             {
                 current_node -> children[n] = calloc(1, sizeof(node));
-                if(checknode(current_node -> children[n]) == true)
+                if(check_node(current_node -> children[n]) == true)
                 {
                     total_nodes++;
                 }
@@ -169,18 +169,18 @@ unsigned int size(void)
 bool unload(void)
 {
     unload_node(root);
-    printf("Ella's version");
+    //printf("Ella's version");
     return true;
 }
 
 // extra functions
 
 /**
- * Index function *
+ * case_check function *
  * takes ascii characters and returns children values 0-26
  * returning 30 indicates error
  **/
-int index(int letter) 
+int case_check(int letter) 
 {
     // uppercase
     if(letter > 64 && letter < 91)
@@ -208,7 +208,7 @@ int index(int letter)
  * Checks if a node has been allocated properly
  **/
  
-bool checknode(node *name)
+bool check_node(node *name)
 {
     if(name == NULL)
     {
